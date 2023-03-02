@@ -4,10 +4,6 @@
  */
 package logi;
 
-import Conexion.Metodos_sql;
-import Metodos.JAnimation;
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author Jorge
@@ -15,8 +11,6 @@ import javax.swing.JOptionPane;
 public class Cuenta extends javax.swing.JFrame {
 
     Login log = new Login();
-    JAnimation animacion = new JAnimation();
-    Metodos_sql metodo = new Metodos_sql();
     /**
      * Creates new form Cuenta
      */

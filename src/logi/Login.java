@@ -22,7 +22,6 @@ import javax.swing.Timer;
 public final class Login extends javax.swing.JFrame {
 
     Metodos_sql metodoSql = new Metodos_sql();
-    private int paso = 0;
     Color rojoo = new Color(255,142,142);
     Color rojis = new Color(248,66,85);
     Color blancoo = new Color(255,255,255);
@@ -535,9 +534,9 @@ public final class Login extends javax.swing.JFrame {
                     this.dispose();
                     ventana.setVisible(true);
                 }else{
-                    String busca = metodoSql.buscarUsuario(nombre, contraseña);
+                    String busca = Metodos_sql.buscarUsuario(nombre, contraseña);
                     if(busca.equals("Bienvenido")){
-                        String nom = metodoSql.buscarNombre(nombre);
+                        String nom = Metodos_sql.buscarNombre(nombre);
                         JOptionPane.showMessageDialog(null,"Bienvenido "+nom);
                         Cuenta cuentapanel = new Cuenta();
                         cuentapanel.jMenuUsuario.setText("Usuario: "+nom);
@@ -612,11 +611,11 @@ public final class Login extends javax.swing.JFrame {
         for (double i = 0.0; i <= 1.0; i = i + 0.1) 
         {//50% de transparencia
             String val = i + "F";
-            float f = Float.valueOf(val);
+            float f = Float.parseFloat(val);
             this.setOpacity(f);
             try {
                 Thread.sleep(50);
-            } catch (Exception e) 
+            } catch (InterruptedException e) 
             {
             }
         }

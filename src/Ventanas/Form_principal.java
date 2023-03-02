@@ -19,7 +19,7 @@ import logi.Login;
  *
  * @author Jorge
  */
-public class Form_principal extends javax.swing.JFrame {
+public final class Form_principal extends javax.swing.JFrame {
 
     Login log = new Login();
     Color azulSelec = new Color(84,127,206);

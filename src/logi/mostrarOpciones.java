@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  *
  * @author Jorge
  */
-public class mostrarOpciones extends javax.swing.JFrame {
+public final class mostrarOpciones extends javax.swing.JFrame {
 
     Metodos_sql metodo = new Metodos_sql();
     String[][] datos = Metodos_sql.datosProductos();
