@@ -17,47 +17,36 @@ public class mostrarOpciones extends javax.swing.JFrame {
     Metodos_sql metodo = new Metodos_sql();
     String[][] datos = Metodos_sql.datosProductos();
     String[] cancelar = new String[10];
+    String[] precio = new String[10];
     String[] nombre = new String[10];
+    double saldo=0;
+    double total=0;
     /**
      * Creates new form mostrarOpciones
      */
     public mostrarOpciones() {
         initComponents();
-        mostrarProductos(jLabelTitulo, jLabelPrecio, jLabelCantidad, datos[0][0], datos[0][1], datos[0][2]);
-        mostrarProductos(jLabelTitulo1, jLabelPrecio1, jLabelCantidad1, datos[1][0], datos[1][1], datos[1][2]);
-        mostrarProductos(jLabelTitulo2, jLabelPrecio2, jLabelCantidad2, datos[2][0], datos[2][1], datos[2][2]);
-        mostrarProductos(jLabelTitulo3, jLabelPrecio3, jLabelCantidad3, datos[3][0], datos[3][1], datos[3][2]);
-        mostrarProductos(jLabelTitulo4, jLabelPrecio4, jLabelCantidad4, datos[4][0], datos[4][1], datos[4][2]);
-        mostrarProductos(jLabelTitulo5, jLabelPrecio5, jLabelCantidad5, datos[5][0], datos[5][1], datos[5][2]);
-        mostrarProductos(jLabelTitulo6, jLabelPrecio6, jLabelCantidad6, datos[6][0], datos[6][1], datos[6][2]);
-        mostrarProductos(jLabelTitulo7, jLabelPrecio7, jLabelCantidad7, datos[7][0], datos[7][1], datos[7][2]);
-        mostrarProductos(jLabelTitulo8, jLabelPrecio8, jLabelCantidad8, datos[8][0], datos[8][1], datos[8][2]);
-        mostrarProductos(jLabelTitulo9, jLabelPrecio9, jLabelCantidad9, datos[9][0], datos[9][1], datos[9][2]);
         llenarDatos();
+        mostrarProductos(jLabelTitulo, jLabelPrecio, jLabelCantidad, nombre[0], precio[0], cancelar[0]);
+        mostrarProductos(jLabelTitulo1, jLabelPrecio1, jLabelCantidad1, nombre[1], precio[1], cancelar[1]);
+        mostrarProductos(jLabelTitulo2, jLabelPrecio2, jLabelCantidad2, nombre[2], precio[2], cancelar[2]);
+        mostrarProductos(jLabelTitulo3, jLabelPrecio3, jLabelCantidad3, nombre[3], precio[3], cancelar[3]);
+        mostrarProductos(jLabelTitulo4, jLabelPrecio4, jLabelCantidad4, nombre[4], precio[4], cancelar[4]);
+        mostrarProductos(jLabelTitulo5, jLabelPrecio5, jLabelCantidad5, nombre[5], precio[5], cancelar[5]);
+        mostrarProductos(jLabelTitulo6, jLabelPrecio6, jLabelCantidad6, nombre[6], precio[6], cancelar[6]);
+        mostrarProductos(jLabelTitulo7, jLabelPrecio7, jLabelCantidad7, nombre[7], precio[7], cancelar[7]);
+        mostrarProductos(jLabelTitulo8, jLabelPrecio8, jLabelCantidad8, nombre[8], precio[8], cancelar[8]);
+        mostrarProductos(jLabelTitulo9, jLabelPrecio9, jLabelCantidad9, nombre[9], precio[9], cancelar[9]);
+        jLabelSaldo.setText("Saldo:  $ "+saldo);
         this.setLocationRelativeTo(null);
     }
     
     public void llenarDatos(){
-        cancelar[0]=datos[0][2];
-        cancelar[1]=datos[1][2];
-        cancelar[2]=datos[2][2];
-        cancelar[3]=datos[3][2];
-        cancelar[4]=datos[4][2];
-        cancelar[5]=datos[5][2];
-        cancelar[6]=datos[6][2];
-        cancelar[7]=datos[7][2];
-        cancelar[8]=datos[8][2];
-        cancelar[9]=datos[9][2];
-        nombre[0]=datos[0][0];
-        nombre[1]=datos[1][0];
-        nombre[2]=datos[2][0];
-        nombre[3]=datos[3][0];
-        nombre[4]=datos[4][0];
-        nombre[5]=datos[5][0];
-        nombre[6]=datos[6][0];
-        nombre[7]=datos[7][0];
-        nombre[8]=datos[8][0];
-        nombre[9]=datos[9][0];
+        for(int i = 0;i<cancelar.length;i++){
+            cancelar[i]=datos[i][2];
+            nombre[i]=datos[i][0];
+            precio[i]=datos[i][1];
+        }
     }
     
     public void mostrarProductos(JLabel titulo, JLabel precio, JLabel cantidad, String tit, String cos, String can){
@@ -70,11 +59,7 @@ public class mostrarOpciones extends javax.swing.JFrame {
         }
     }
     
-    public void mostrarImagen(JLabel imagen, String nombre){
-        metodo.mandarImagen(imagen, nombre);
-    }
-    
-    public void agregarProducto(JLabel label){
+    public void agregarProducto(JLabel label, String precio){
         int valor;
         if(label.getText().equals("Agotado")){
             valor=0;
@@ -91,6 +76,7 @@ public class mostrarOpciones extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(null, "El producto esta agotado");
         }
+        total=total+Double.parseDouble(precio);
     }
     
     /**
@@ -184,6 +170,8 @@ public class mostrarOpciones extends javax.swing.JFrame {
         jButtonCancelar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        jLabelSaldo = new javax.swing.JLabel();
+        jButtonSaldo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -408,21 +396,19 @@ public class mostrarOpciones extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(77, 77, 77)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelImagen4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabelCantidad4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                                .addComponent(jLabelPrecio4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addContainerGap(101, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabelImagen4, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabelCantidad4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                            .addComponent(jLabelPrecio4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jButtonAgregar4)
-                        .addContainerGap(93, Short.MAX_VALUE))))
+                        .addComponent(jButtonAgregar4)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(61, 61, 61)
                 .addComponent(jLabelTitulo4, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 43, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -470,17 +456,15 @@ public class mostrarOpciones extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(77, 77, 77)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelImagen2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabelCantidad2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                                .addComponent(jLabelPrecio2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addContainerGap(97, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabelImagen2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabelCantidad2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                            .addComponent(jLabelPrecio2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jButtonAgregar2)
-                        .addContainerGap(89, Short.MAX_VALUE))))
+                        .addComponent(jButtonAgregar2)))
+                .addContainerGap(89, Short.MAX_VALUE))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(66, 66, 66)
                 .addComponent(jLabelTitulo2, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -532,21 +516,19 @@ public class mostrarOpciones extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(77, 77, 77)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelImagen5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabelCantidad5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                                .addComponent(jLabelPrecio5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addContainerGap(97, Short.MAX_VALUE))
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabelImagen5, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabelCantidad5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                            .addComponent(jLabelPrecio5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jButtonAgregar5)
-                        .addContainerGap(89, Short.MAX_VALUE))))
+                        .addComponent(jButtonAgregar5)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(jLabelTitulo5, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 43, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -599,21 +581,19 @@ public class mostrarOpciones extends javax.swing.JFrame {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(77, 77, 77)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelImagen6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabelCantidad6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                                .addComponent(jLabelPrecio6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addContainerGap(91, Short.MAX_VALUE))
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabelImagen6, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabelCantidad6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                            .addComponent(jLabelPrecio6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jButtonAgregar6)
-                        .addContainerGap(83, Short.MAX_VALUE))))
+                        .addComponent(jButtonAgregar6)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addComponent(jLabelTitulo6, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 69, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -661,21 +641,19 @@ public class mostrarOpciones extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGap(77, 77, 77)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelImagen9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabelCantidad9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                                .addComponent(jLabelPrecio9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addContainerGap(91, Short.MAX_VALUE))
+                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabelImagen9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabelCantidad9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                            .addComponent(jLabelPrecio9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jButtonAgregar9)
-                        .addContainerGap(83, Short.MAX_VALUE))))
+                        .addComponent(jButtonAgregar9)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGap(68, 68, 68)
                 .addComponent(jLabelTitulo9, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 58, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -837,19 +815,17 @@ public class mostrarOpciones extends javax.swing.JFrame {
             .addGroup(jPanel13Layout.createSequentialGroup()
                 .addGap(77, 77, 77)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabelImagen7, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabelCantidad7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                                .addComponent(jLabelPrecio7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addContainerGap(97, Short.MAX_VALUE))
+                    .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabelImagen7, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabelCantidad7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                            .addComponent(jLabelPrecio7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel13Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jButtonAgregar7)
-                        .addContainerGap(89, Short.MAX_VALUE))))
+                        .addComponent(jButtonAgregar7)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(50, Short.MAX_VALUE)
                 .addComponent(jLabelTitulo7, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48))
         );
@@ -981,6 +957,20 @@ public class mostrarOpciones extends javax.swing.JFrame {
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
         jPanelAgregar.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 1154, 10));
 
+        jLabelSaldo.setText("Saldo");
+        jPanelAgregar.add(jLabelSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 150, 20));
+
+        jButtonSaldo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/icono_saldo.png"))); // NOI18N
+        jButtonSaldo.setText("Agregar saldo");
+        jButtonSaldo.setContentAreaFilled(false);
+        jButtonSaldo.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        jButtonSaldo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSaldoActionPerformed(evt);
+            }
+        });
+        jPanelAgregar.add(jButtonSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, -1, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1010,67 +1000,113 @@ public class mostrarOpciones extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelImagen3MouseClicked
 
     private void jButtonAgregar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregar3ActionPerformed
-        agregarProducto(jLabelCantidad3);
+        agregarProducto(jLabelCantidad3, precio[3]);
     }//GEN-LAST:event_jButtonAgregar3ActionPerformed
 
     private void jButtonAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregar1ActionPerformed
-        agregarProducto(jLabelCantidad1);
+        agregarProducto(jLabelCantidad1, precio[1]);
     }//GEN-LAST:event_jButtonAgregar1ActionPerformed
 
     private void jButtonAgregar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregar2ActionPerformed
-        agregarProducto(jLabelCantidad2);
+        agregarProducto(jLabelCantidad2, precio[2]);
     }//GEN-LAST:event_jButtonAgregar2ActionPerformed
 
     private void jButtonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregarActionPerformed
-        agregarProducto(jLabelCantidad);
+        agregarProducto(jLabelCantidad, precio[0]);
     }//GEN-LAST:event_jButtonAgregarActionPerformed
 
     private void jButtonAgregar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregar4ActionPerformed
-        agregarProducto(jLabelCantidad4);
+        agregarProducto(jLabelCantidad4, precio[4]);
     }//GEN-LAST:event_jButtonAgregar4ActionPerformed
 
     private void jButtonAgregar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregar5ActionPerformed
-        agregarProducto(jLabelCantidad5);
+        agregarProducto(jLabelCantidad5, precio[5]);
     }//GEN-LAST:event_jButtonAgregar5ActionPerformed
 
     private void jButtonAgregar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregar6ActionPerformed
-        agregarProducto(jLabelCantidad6);
+        agregarProducto(jLabelCantidad6, precio[6]);
     }//GEN-LAST:event_jButtonAgregar6ActionPerformed
 
     private void jButtonAgregar8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregar8ActionPerformed
-        agregarProducto(jLabelCantidad8);
+        agregarProducto(jLabelCantidad8, precio[8]);
     }//GEN-LAST:event_jButtonAgregar8ActionPerformed
 
     private void jButtonAgregar7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregar7ActionPerformed
-        agregarProducto(jLabelCantidad7);
+        agregarProducto(jLabelCantidad7, precio[7]);
     }//GEN-LAST:event_jButtonAgregar7ActionPerformed
 
     private void jButtonAgregar9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAgregar9ActionPerformed
-        agregarProducto(jLabelCantidad9);
+        agregarProducto(jLabelCantidad9, precio[9]);
     }//GEN-LAST:event_jButtonAgregar9ActionPerformed
 
     private void jButtonComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComprarActionPerformed
         int[] can = new int[10];
-        can[0]=Integer.parseInt(jLabelCantidad.getText());
-        can[1]=Integer.parseInt(jLabelCantidad1.getText());
-        can[2]=Integer.parseInt(jLabelCantidad2.getText());
-        can[3]=Integer.parseInt(jLabelCantidad3.getText());
-        can[4]=Integer.parseInt(jLabelCantidad4.getText());
-        can[5]=Integer.parseInt(jLabelCantidad5.getText());
-        can[6]=Integer.parseInt(jLabelCantidad6.getText());
-        can[7]=Integer.parseInt(jLabelCantidad7.getText());
-        can[8]=Integer.parseInt(jLabelCantidad8.getText());
-        can[9]=Integer.parseInt(jLabelCantidad9.getText());
-        int dialog = JOptionPane.YES_NO_OPTION;
-        int result = JOptionPane.showConfirmDialog(null, "Confirmar compra!", "EXIT", dialog);
-        if(result == 0){
-            metodo.compraProducto(can, nombre);
-            JOptionPane.showMessageDialog(null, "Compra realizada con exito!");
-            for(int i=0;i<can.length;i++){
-                cancelar[i]=String.valueOf(can[i]);
-            }
+        if(jLabelCantidad.getText().equals("Agotado")){
+            can[0]=0;
+        }else{
+            can[0]=Integer.parseInt(jLabelCantidad.getText());
         }
-        
+        if(jLabelCantidad1.getText().equals("Agotado")){
+            can[1]=0;
+        }else{
+            can[1]=Integer.parseInt(jLabelCantidad1.getText());
+        }
+        if(jLabelCantidad2.getText().equals("Agotado")){
+            can[2]=0;
+        }else{
+            can[2]=Integer.parseInt(jLabelCantidad2.getText());
+        }
+        if(jLabelCantidad3.getText().equals("Agotado")){
+            can[3]=0;
+        }else{
+            can[3]=Integer.parseInt(jLabelCantidad3.getText());
+        }
+        if(jLabelCantidad4.getText().equals("Agotado")){
+            can[4]=0;
+        }else{
+            can[4]=Integer.parseInt(jLabelCantidad4.getText());
+        }
+        if(jLabelCantidad5.getText().equals("Agotado")){
+            can[5]=0;
+        }else{
+            can[5]=Integer.parseInt(jLabelCantidad5.getText());
+        }
+        if(jLabelCantidad6.getText().equals("Agotado")){
+            can[6]=0;
+        }else{
+            can[6]=Integer.parseInt(jLabelCantidad6.getText());
+        }
+        if(jLabelCantidad7.getText().equals("Agotado")){
+            can[7]=0;
+        }else{
+            can[7]=Integer.parseInt(jLabelCantidad7.getText());
+        }
+        if(jLabelCantidad8.getText().equals("Agotado")){
+            can[8]=0;
+        }else{
+            can[8]=Integer.parseInt(jLabelCantidad8.getText());
+        }
+        if(jLabelCantidad9.getText().equals("Agotado")){
+            can[9]=0;
+        }else{
+            can[9]=Integer.parseInt(jLabelCantidad9.getText());
+        }
+        if(saldo>total){
+            int dialog = JOptionPane.YES_NO_OPTION;
+            int result = JOptionPane.showConfirmDialog(null, "Confirmar compra!", "EXIT", dialog);
+            if(result == 0){
+                saldo=saldo-total;
+                total=0;
+                metodo.compraProducto(can, nombre);
+                JOptionPane.showMessageDialog(null, "Compra realizada con exito!");
+                jLabelSaldo.setText("Saldo:  $ "+saldo);
+                for(int i=0;i<can.length;i++){
+                    cancelar[i]=String.valueOf(can[i]);
+                }
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "No tiene suficiente dinero en su cartera!");
+        }
     }//GEN-LAST:event_jButtonComprarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -1089,11 +1125,17 @@ public class mostrarOpciones extends javax.swing.JFrame {
                 jLabelCantidad7.setText(cancelar[7]);
                 jLabelCantidad8.setText(cancelar[8]);
                 jLabelCantidad9.setText(cancelar[9]);
+                total=0;
             }
         }else{
             JOptionPane.showMessageDialog(null, "Primero debe agregar compras");
         }
     }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaldoActionPerformed
+        saldo = saldo+Double.parseDouble(JOptionPane.showInputDialog("Cuanto saldo quiere agregar?"));
+        jLabelSaldo.setText("Saldo:  $ "+saldo);
+    }//GEN-LAST:event_jButtonSaldoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1147,6 +1189,7 @@ public class mostrarOpciones extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAtras;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonComprar;
+    private javax.swing.JButton jButtonSaldo;
     private javax.swing.JButton jButtonSiguiente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelCantidad;
@@ -1185,6 +1228,7 @@ public class mostrarOpciones extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelPrecio7;
     private javax.swing.JLabel jLabelPrecio8;
     private javax.swing.JLabel jLabelPrecio9;
+    private javax.swing.JLabel jLabelSaldo;
     private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JLabel jLabelTitulo1;
     private javax.swing.JLabel jLabelTitulo10;

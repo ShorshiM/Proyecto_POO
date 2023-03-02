@@ -318,36 +318,6 @@ public class Metodos_sql {
         return datos;
     }
     
-    public void mandarImagen(JLabel icon, String nombre){
-        Connection conexion = null;
-        String obtenerIcon = ("SELECT imagen FROM productos WHERE producto ='"+nombre+"'");
-        try {
-            conexion = Conexion.conectar();
-            sentenciaPreparada = conexion.prepareStatement(obtenerIcon);
-            resultado = sentenciaPreparada.executeQuery();
-            Blob blob = (Blob) resultado.getBlob(1);
-            if(blob != null){
-                try {
-                    byte[] data = blob.getBytes(1, (int)blob.length());
-                    BufferedImage img =null;
-                    try {
-                        img = ImageIO.read(new ByteArrayInputStream(data));
-                    } catch (IOException e) {
-                        JOptionPane.showMessageDialog(null, "Error: "+e);
-                    }
-                    ImageIcon imagen = new ImageIcon(img);
-                    icon.setIcon(imagen);
-                } catch (SQLException e) {
-                }
-            }
-            
-            sentenciaPreparada.close();
-            conexion.close();
-        } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error: "+e);
-        }
-    }
-    
     public void actualizarContacto(String cedula, String nom, String dir, String tel, String ced, String cor){
         Connection conexion=null;
         String actualizarContacto = ("UPDATE contacto SET nombre = '"+nom+"', direccion = '"+dir+"', telefono = '"+tel+"', correo = '"+cor+"', cedula = '"+ced+"' WHERE cedula = '"+cedula+"'");
